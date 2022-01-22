@@ -1,17 +1,17 @@
-# Importing tkinter module
-from fileinput import filename
-from tkinter import *       
-import pytesseract as tess
-import os
-import subprocess
-from PIL import Image, ImageTk
-from tkinter import Tk 
-from tkinter.filedialog import askopenfilename
-tess.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+from tkinter import *
+from PIL import ImageTk, Image
+from tkinter import filedialog
+
+root = Tk()
+
+root.filename = filedialog.askopenfilename()
+my_label = Label(root, text=root.filename).pack()
+my_image = ImageTk.PhotoImage(Image.open(root.filename))
+my_image_label = Label(image=my_image).pack
+
+root.mainloop()
 
 
-filename = askopenfilename()
-if filename.endswith(".jpg") or filename.endswith('.png'):
-    print(filename)
+
 
 
