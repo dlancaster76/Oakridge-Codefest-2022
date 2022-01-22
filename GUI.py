@@ -1,28 +1,35 @@
 # Importing tkinter module
 from tkinter import *       
 import pytesseract as tess
-from PIL import Image
+import os
+from PIL import Image, ImageTk
 tess.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
  
 # Creating a tkinter window
 root = Tk()           
-root.geometry('500x750')    
+root.geometry('800x650')    
  
 
 #confirm/photo buttons 
 btn1 = Button(root, text = 'Confirm')
-btn1.place(x=150, y=600)
+btn1.place(x = 325, y = 600)
 
 btn2 = Button(root, text = 'Import Photo')
-btn2.place(x=215, y=600)
+btn2.place(x = 390, y = 600)
  
 #image to text test
-img = Image.open('text1.png')
-print(tess.image_to_string(img))
+image = Image.open('text1.png')
+print(tess.image_to_string(image))
+
+image = image.resize((550, 350), Image.ANTIALIAS)
+
 
 #display image test
-img = PhotoImage(file='text1.PNG')
-Label(root, image=img).pack()
+image1 = ImageTk.PhotoImage(image)
+label1 = Label(root, image = image1)
+label1.place(x = 125, y = 100)
+
+
 
 
 root.mainloop()
