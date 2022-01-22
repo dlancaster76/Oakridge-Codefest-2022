@@ -1,11 +1,16 @@
-from tkinter import *   
+# Importing tkinter module
+from tkinter import *       
  
-# create a tkinter window
-root = Tk()             
+# Creating a tkinter window
+root = Tk()
  
-root.geometry('500x700')
+# Initialize tkinter window with dimensions 300 x 250            
+root.geometry('300x250')    
  
-btn = Button(root, text = 'Click me !', bd = '5', command = root.destroy)
-
+# Creating a Button
+btn = Button(root, text = 'Click me !', command = root.destroy)
+ 
+# Set the position of button to coordinate (100, 20)
+btn.place(x=100, y=20)
  
 root.mainloop()
