@@ -2,15 +2,10 @@
 from tkinter import *       
  
 # Creating a tkinter window
-root = Tk()
+root = Tk()           
+root.geometry('500x750')    
  
-# Initialize tkinter window with dimensions 300 x 250            
-root.geometry('300x250')    
- 
-# Creating a Button
 btn = Button(root, text = 'Click me !', command = root.destroy)
- 
-# Set the position of button to coordinate (100, 20)
-btn.place(x=100, y=20)
+btn.place(x=225, y=375)
  
 root.mainloop()
