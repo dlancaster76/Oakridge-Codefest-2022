@@ -7,6 +7,7 @@ tess.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # Creating a tkinter window
 root = Tk()           
 root.geometry('500x750')    
+ 
 
 #confirm/photo buttons 
 btn1 = Button(root, text = 'Confirm')
@@ -20,7 +21,8 @@ img = Image.open('text1.png')
 print(tess.image_to_string(img))
 
 #display image test
-
+img = PhotoImage(file='text1.PNG')
+Label(root, image=img).pack()
 
 
 root.mainloop()
