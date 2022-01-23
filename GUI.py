@@ -30,9 +30,10 @@ def return_dir():
 def image2text():
     text = tess.image_to_string(root.filename)
     print(text)
+    root.destroy()
 
 #confirm/photo buttons 
-btn1 = Button(root, text = 'Confirm', command=image2text)
+btn1 = Button(root, text = 'Confirm', command=image2text,)
 btn1.place(x = 325, y = 550)
 
 btn2 = Button(root, text = 'Import Photo', command=return_dir)
