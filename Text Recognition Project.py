@@ -1,7 +1,5 @@
 import shutil
-from tkinter import * 
-from tkinter import Tk
-from tkinter import filedialog
+import getpass
 import pytesseract as tess
 import os
 from PIL import Image
@@ -49,7 +47,7 @@ def words_into_list(string, list):
 
     return list
 
-#
+#converts all words in a list to lowercase 
 def list_into_lowtext(list):
     for i in range(len(list)):
         list[i] = list[i].lower()
@@ -57,27 +55,28 @@ def list_into_lowtext(list):
 
 
 #creates a new folder
-def create_nfolder(subject, image_path, image, dict):
+def create_nfolder(subject, image_path, image, dict, user):
     dir_name = subject
     try:
         os.mkdir(dir_name)
         print(dir_name, 'created')
         print("Adding", image_path, "to", dir_name)
         src = image
-        dst = r'C:\Users\bielp\Desktop\Text_recognition' + "\\" + dir_name
+        dst = r'C:\Users\{}\Desktop\Text_recognition'.format(user) + "\\" + dir_name
         shutil.copy(src, dst)
 
     except FileExistsError:
         print("Adding", image_path, "to", dir_name)
         src = image
-        dst =  r'C:\Users\bielp\Desktop\Text_recognition' + "\\" + dir_name
+        dst =  r'C:\Users\{}\Desktop\Text_recognition'.format(user) + "\\" + dir_name
         shutil.copy(src, dst)
     
 
 
 def main():
     #runs through images in desire path and converts them into text
-    get_images(r'C:\Users\bielp\Desktop\Text_recognition') 
+    user = getpass.getuser()
+    get_images(r'C:\Users\{}\Desktop\Text_recognition'.format(user)) 
     print(images)
     for image in images:
         phy = 0
@@ -92,7 +91,7 @@ def main():
         print("""-----------------------------
         {}
         -----------------------------""".format(text_list))
-        #comparing text in image to subject glossaries
+    #comparing text in image to subject glossaries
         phy = is_word_in(physics_keywords, text_list, phy)
         maths = is_word_in(maths_keywords, text_list, maths)
         bio = is_word_in(bio_keywords, text_list, bio)
@@ -100,7 +99,7 @@ def main():
         total_tallies = {'physics':phy, 'maths':maths, 'biology':bio}
         print(total_tallies)
     
-#decide which subject the image belongs to, and add it to its folder
+    #decide which subject the image belongs to, and add it to its folder
         
         max = 0
         max_subj = ''
@@ -111,35 +110,35 @@ def main():
 
         print(max_subj)
         if max_subj == 'physics':
-            create_nfolder('physics', img_name, image, total_tallies)
+            create_nfolder('physics', img_name, image, total_tallies, user)
             
         
         elif max_subj == 'maths':
-            create_nfolder('maths', img_name, image, total_tallies)
+            create_nfolder('maths', img_name, image, total_tallies, user)
 
 
         elif max_subj == 'biology':
-            create_nfolder('biology', img_name, image, total_tallies)
+            create_nfolder('biology', img_name, image, total_tallies, user)
 
-        
+    #asks user to add 
         else: 
             print('Sorry, we could not find a subject for this image...')
             user_choice = input("Please select where would you like to store the file:")
             #!!!use dropdown box to select one of the chosen subjects and allow user to create a new directory
-            #also display image and put the options below it
+            #also display image and put the options of storing below it
             if user_choice == 'store in existing folder':
                 #create drop down box with subject options
                 subject = input('choose cexisting folder')
                 subject.lower()
                 if subject == 'physics':
-                    create_nfolder(subject, img_name, image, total_tallies)
+                    create_nfolder(subject, img_name, image, total_tallies, user)
 
                 elif subject == 'biology':
-                    create_nfolder(subject, img_name, image, total_tallies)
+                    create_nfolder(subject, img_name, image, total_tallies, user)
 
                 
                 elif subject == 'maths':
-                    create_nfolder('maths', img_name, image, total_tallies)
+                    create_nfolder('maths', img_name, image, total_tallies, user)
 
 
             elif user_choice == 'create new folder':
@@ -151,19 +150,37 @@ def main():
                     print(dir_name, 'created')
                     print("Adding", img_name, "to", dir_name)
                     src = image
-                    dst = r'C:\Users\bielp\Desktop\Text_recognition' + "\\" + dir_name
+                    dst = r'C:\Users\{}\Desktop\Text_recognition'.format(user) + "\\" + dir_name
                     total_tallies.update({dir_name:'No glossary available'})
                     shutil.copy(src, dst)
 
                 except FileExistsError:
                     print("Adding", img_name, "to", dir_name)
                     src = image
-                    dst =  r'C:\Users\bielp\Desktop\Text_recognition' + "\\" + dir_name
+                    dst =  r'C:\Users\{}\Desktop\Text_recognition'.format(user) + "\\" + dir_name
                     shutil.copy(src, dst)
-
+    
+    print('All images are sorted in their folders! :)')
 
                   
 
 
         
 main()
+
+        
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
